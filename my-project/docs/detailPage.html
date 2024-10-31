@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết tài liệu</title>
+    <style>
+        /* Đặt font và căn giữa trang */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f7f9;
+            padding: 20px;
+            margin: 0;
+            height: 100vh;
+        }
+
+        /* Khung chứa thông tin chi tiết */
+        #detail-section {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        /* Tiêu đề */
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-top: 0;
+        }
+
+        /* Nội dung chi tiết */
+        #detail-section strong {
+            color: #555;
+        }
+
+        #detail-section div {
+            margin-bottom: 15px;
+            padding: 5px 0;
+        }
+
+        /* Phong cách liên kết */
+        a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="detail-section">
+        <h2>Chi tiết tài liệu</h2>
+        <!-- Thông tin chi tiết sẽ được hiển thị ở đây -->
+    </div>
+
+    <script>
+        // Lấy tham số id từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const docId = urlParams.get('id');
+
+        // Fetch dữ liệu từ Base_Luce.json
+        fetch('Base_Luce.json')
+            .then(response => response.json())
+            .then(data => {
+                const doc = data[docId];
+                const detailDiv = document.getElementById('detail-section');
+
+                // Hiển thị thông tin tài liệu
+                detailDiv.innerHTML += `
+                    <div><strong>Tác giả:</strong> ${doc["prénom auteur"]} ${doc["auteurMIN"]}</div>
+                    <div><strong>Tác phẩm:</strong> ${doc["titre"]}</div>
+                    <div><strong>Địa điểm:</strong> ${doc["lieu"]}</div>
+                    <div><strong>Nhà xuất bản:</strong> ${doc["éditeur"]}</div>
+                    <div><strong>Năm:</strong> ${doc["date"]}</div>
+                    <div><strong>Phương pháp:</strong> ${doc["technique"]}</div>
+                    <div><strong>Thể loại:</strong> ${doc["genre"]}</div>
+                `;
+            });
+    </script>
+</body>
+</html>
